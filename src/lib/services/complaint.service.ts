@@ -18,9 +18,6 @@ export const complaintService = {
 
     if (!user) throw new Error('Not authenticated');
 
-    // 1. Generate embedding for semantic vector storage in DB
-    const embedding = await generateEmbedding(`${input.title} ${input.description}`);
-
     // 2. Automatically classify if category wasn't manually selected
     let finalCategoryId = input.category_id;
     let confidence = 0;
@@ -50,6 +47,7 @@ export const complaintService = {
       console.warn('[AI Duplicate Detector] Check failed, continuing with pending status:', err);
     }
 
+    // 4. Insert the complaint WITHOUT embedding first so it always saves
     const { data, error } = await supabase
       .from('complaints')
       .insert({
@@ -58,14 +56,31 @@ export const complaintService = {
         ai_confidence: confidence,
         student_id: user.id,
         status: status,
-        embedding: embedding
       })
       .select()
       .single();
 
     if (error) throw error;
+
+    // 5. Generate embedding and update the record asynchronously (non-blocking)
+    //    Wrapped in try/catch so embedding failure never breaks the submission
+    try {
+      const embedding = await generateEmbedding(`${input.title} ${input.description}`);
+      // Only update if embedding is non-trivial (not the zero-vector fallback from an outage)
+      const isNonZero = embedding.some(v => v !== 0);
+      if (isNonZero) {
+        await supabase
+          .from('complaints')
+          .update({ embedding: embedding as any })
+          .eq('id', data.id);
+      }
+    } catch (embErr) {
+      console.warn('[AI] Embedding update skipped (column may not exist yet or model unavailable):', embErr);
+    }
+
     return data;
   },
+
 
 
 
