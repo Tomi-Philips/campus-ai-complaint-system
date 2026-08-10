@@ -115,6 +115,12 @@ export const complaintService = {
       .select('*', { count: 'exact', head: true })
       .eq('status', 'resolved');
 
+    // Pending complaints
+    const { count: pendingComplaints } = await supabase
+      .from('complaints')
+      .select('*', { count: 'exact', head: true })
+      .eq('status', 'pending');
+
     // Recent growth (last 7 days)
     const sevenDaysAgo = new Date();
     sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7);
@@ -131,6 +137,7 @@ export const complaintService = {
     return {
       total: totalComplaints || 0,
       resolved: resolvedComplaints || 0,
+      pending: pendingComplaints || 0,
       recent: recentComplaints || [],
       categories: categories || []
     };

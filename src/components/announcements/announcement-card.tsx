@@ -38,9 +38,9 @@ export function AnnouncementCard({ announcement }: AnnouncementCardProps) {
   return (
     <motion.div
       layout
-      initial={{ opacity: 0, scale: 0.95 }}
+      initial={{ opacity: 0, scale: 0.98 }}
       animate={{ opacity: 1, scale: 1 }}
-      className="glass rounded-[32px] overflow-hidden group hover:border-brand-500/30 transition-all shadow-2xl"
+      className="bg-white rounded-2xl border border-slate-200 overflow-hidden group hover:border-slate-300 transition-all shadow-sm"
     >
       {announcement.banner_url && (
         <div className="h-48 w-full overflow-hidden relative">
@@ -49,11 +49,11 @@ export function AnnouncementCard({ announcement }: AnnouncementCardProps) {
             alt={announcement.title}
             className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
           />
-          <div className="absolute inset-0 bg-gradient-to-t from-background to-transparent opacity-60" />
+          <div className="absolute inset-0 bg-gradient-to-t from-white to-transparent opacity-60" />
         </div>
       )}
 
-      <div className="p-8 space-y-4">
+      <div className="p-6 space-y-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <Badge variant={config.variant} className="gap-1.5 flex items-center py-1 px-3">
@@ -67,32 +67,24 @@ export function AnnouncementCard({ announcement }: AnnouncementCardProps) {
               </Badge>
             )}
           </div>
-          <p className="text-[10px] font-black uppercase tracking-widest text-foreground/40">
+          <p className="text-[10px] font-bold uppercase tracking-widest text-slate-400">
             {formatDistanceToNow(new Date(announcement.created_at))} ago
           </p>
         </div>
 
-        <h3 className="text-2xl font-black tracking-tight group-hover:text-brand-500 transition-colors leading-tight">
+        <h3 className="text-lg font-bold tracking-tight text-slate-900 group-hover:text-brand-500 transition-colors leading-tight">
           {announcement.title}
         </h3>
 
-        <p className="text-foreground/60 font-medium leading-relaxed line-clamp-3">
+        <p className="text-slate-500 text-xs leading-relaxed line-clamp-3">
           {announcement.content}
         </p>
 
-        <div className="pt-4 flex items-center justify-between">
-           <button className="text-sm font-black text-brand-500 flex items-center gap-2 hover:gap-3 transition-all">
+        <div className="pt-4 flex items-center justify-between border-t border-slate-100">
+           <button className="text-xs font-bold text-brand-500 flex items-center gap-1.5 hover:text-brand-600 transition-all">
              Read Full Update
-             <ExternalLink className="w-4 h-4" />
+             <ExternalLink className="w-3.5 h-3.5" />
            </button>
-           <div className="flex -space-x-2">
-              {[1, 2, 3].map(i => (
-                <div key={i} className="w-8 h-8 rounded-full border-2 border-background bg-white/10" />
-              ))}
-              <div className="w-8 h-8 rounded-full border-2 border-background bg-brand-500 flex items-center justify-center text-[10px] font-black text-white">
-                +12
-              </div>
-           </div>
         </div>
       </div>
     </motion.div>

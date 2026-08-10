@@ -15,13 +15,13 @@ interface BadgeProps {
 
 export function Badge({ children, variant = 'primary', className }: BadgeProps) {
   const variants = {
-    primary: 'bg-brand-500/10 text-brand-500 border-brand-500/20',
-    secondary: 'bg-accent-500/10 text-accent-500 border-accent-500/20',
-    outline: 'border-border text-foreground/60',
-    success: 'bg-green-500/10 text-green-500 border-green-500/20',
-    warning: 'bg-amber-500/10 text-amber-500 border-amber-500/20',
-    error: 'bg-red-500/10 text-red-500 border-red-500/20',
-    glass: 'glass text-foreground/80',
+    primary:   'bg-brand-50  text-brand-600  border-brand-200',
+    secondary: 'bg-violet-50 text-violet-600 border-violet-200',
+    outline:   'bg-slate-50  text-slate-600  border-slate-300',
+    success:   'bg-emerald-50 text-emerald-700 border-emerald-200',
+    warning:   'bg-amber-50  text-amber-700  border-amber-200',
+    error:     'bg-red-50    text-red-600    border-red-200',
+    glass:     'bg-slate-100 text-slate-700  border-slate-200',
   };
 
   return (

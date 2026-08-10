@@ -145,25 +145,24 @@ export default function AdminCategoriesPage() {
   return (
     <div className="space-y-6 md:space-y-8 pb-20">
       {/* Header Section */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <Badge variant="glass" className="bg-gradient-to-r from-brand-500/10 to-accent-500/10 text-brand-400 border-brand-500/20 flex gap-2">
-              <BrainCircuit className="w-3 h-3 mr-1" />
+            <Badge variant="primary" className="flex gap-2">
               AI Training Center
             </Badge>
           </div>
-          <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-2 bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
+          <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight mb-2 text-slate-900">
             AI Categories
           </h1>
-          <p className="text-slate-400 font-medium text-sm md:text-base">
+          <p className="text-slate-500 text-xs md:text-sm">
             Define categories and provide training phrases for the AI semantic engine
           </p>
         </div>
 
         <Button
           onClick={() => setShowAddModal(true)}
-          className="rounded-xl gap-2 shadow-lg shadow-brand-500/25 bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 h-11"
+          className="rounded-lg gap-2 bg-brand-500 text-white hover:bg-brand-600 shadow-sm h-11 px-5"
         >
           <Plus className="w-4 h-4" />
           Create Category
@@ -172,40 +171,40 @@ export default function AdminCategoriesPage() {
 
       {/* Stats Overview */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
-        <div className="bg-slate-900/80 backdrop-blur-sm rounded-xl p-4 border border-slate-700/50">
+        <div className="bg-white rounded-xl p-4 border border-slate-200 shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-[10px] font-black uppercase tracking-wider text-slate-500">Total Categories</p>
-              <p className="text-2xl font-black text-white">{categories.length}</p>
+              <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Total Categories</p>
+              <p className="text-2xl font-extrabold text-slate-900 mt-1">{categories.length}</p>
             </div>
-            <div className="w-10 h-10 rounded-xl bg-brand-500/10 flex items-center justify-center">
-              <Layers className="w-5 h-5 text-brand-400" />
+            <div className="w-10 h-10 rounded-lg bg-brand-50 flex items-center justify-center">
+              <Layers className="w-5 h-5 text-brand-500" />
             </div>
           </div>
         </div>
 
-        <div className="bg-slate-900/80 backdrop-blur-sm rounded-xl p-4 border border-slate-700/50">
+        <div className="bg-white rounded-xl p-4 border border-slate-200 shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-[10px] font-black uppercase tracking-wider text-slate-500">Training Examples</p>
-              <p className="text-2xl font-black text-white">{totalTrainingExamples}</p>
+              <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Training Examples</p>
+              <p className="text-2xl font-extrabold text-slate-900 mt-1">{totalTrainingExamples}</p>
             </div>
-            <div className="w-10 h-10 rounded-xl bg-accent-500/10 flex items-center justify-center">
-              <Database className="w-5 h-5 text-accent-400" />
+            <div className="w-10 h-10 rounded-lg bg-indigo-50 flex items-center justify-center">
+              <Database className="w-5 h-5 text-indigo-500" />
             </div>
           </div>
         </div>
 
-        <div className="bg-slate-900/80 backdrop-blur-sm rounded-xl p-4 border border-slate-700/50">
+        <div className="bg-white rounded-xl p-4 border border-slate-200 shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-[10px] font-black uppercase tracking-wider text-slate-500">AI Model Status</p>
-              <p className="text-2xl font-black text-emerald-400">Active</p>
+              <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">AI Model Status</p>
+              <p className="text-2xl font-extrabold text-emerald-600 mt-1">Active</p>
             </div>
             <div className="relative">
-              <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse absolute -top-1 -right-1" />
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
-                <Zap className="w-5 h-5 text-emerald-400" />
+              <div className="w-2 h-2 bg-emerald-500 rounded-full absolute -top-1 -right-1" />
+              <div className="w-10 h-10 rounded-lg bg-emerald-50 flex items-center justify-center">
+                <Zap className="w-5 h-5 text-emerald-500" />
               </div>
             </div>
           </div>
@@ -213,17 +212,16 @@ export default function AdminCategoriesPage() {
       </div>
 
       {/* Info Card */}
-      <div className="relative overflow-hidden rounded-xl bg-gradient-to-r from-brand-500/5 to-accent-500/5 border border-brand-500/10 p-5">
-        <div className="absolute top-0 right-0 w-32 h-32 bg-brand-500/5 rounded-full blur-2xl" />
+      <div className="relative overflow-hidden rounded-xl bg-brand-50/50 border border-brand-100 p-5">
         <div className="flex items-start gap-4 relative z-10">
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-accent-500 flex items-center justify-center flex-shrink-0 shadow-lg">
+          <div className="w-10 h-10 rounded-lg bg-brand-500 flex items-center justify-center flex-shrink-0 shadow-sm">
             <Sparkles className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h4 className="font-bold text-brand-400 mb-1 text-sm">How AI Categorization Works</h4>
-            <p className="text-xs md:text-sm text-slate-400 leading-relaxed">
-              The AI uses <span className="text-brand-400 font-semibold">"Semantic Matching"</span>. By adding 5-10 example phrases for each category,
-              the system learns the <span className="text-accent-400 font-semibold">context</span> rather than just keywords. This enables automatic
+            <h4 className="font-bold text-brand-750 mb-1 text-sm">How AI Categorization Works</h4>
+            <p className="text-xs md:text-sm text-slate-500 leading-relaxed">
+              The AI uses <span className="text-brand-600 font-semibold">"Semantic Matching"</span>. By adding 5-10 example phrases for each category,
+              the system learns the context rather than just matching exact keywords. This enables automatic
               categorization of student complaints with high accuracy.
             </p>
           </div>
@@ -235,28 +233,20 @@ export default function AdminCategoriesPage() {
         {isLoading ? (
           <div className="space-y-3">
             {[1, 2, 3].map(i => (
-              <div key={i} className="bg-slate-900/50 rounded-xl p-6 animate-pulse">
-                <div className="flex items-center gap-4">
-                  <div className="w-12 h-12 bg-slate-800 rounded-xl" />
-                  <div className="flex-1">
-                    <div className="w-32 h-5 bg-slate-800 rounded-lg mb-2" />
-                    <div className="w-48 h-3 bg-slate-800 rounded-lg" />
-                  </div>
-                </div>
-              </div>
+              <div key={i} className="bg-white rounded-xl border border-slate-200 p-6 animate-pulse" style={{ height: '80px' }} />
             ))}
           </div>
         ) : categories.length === 0 ? (
-          <div className="bg-slate-900/50 rounded-xl p-12 text-center border border-slate-700/50">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-slate-800 flex items-center justify-center">
-              <Tags className="w-8 h-8 text-slate-600" />
+          <div className="bg-white rounded-xl p-12 text-center border border-slate-200 shadow-sm">
+            <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-slate-50 flex items-center justify-center">
+              <Tags className="w-8 h-8 text-slate-300" />
             </div>
-            <h3 className="text-lg font-bold text-slate-400">No categories yet</h3>
-            <p className="text-slate-500 text-sm mt-1">Create your first category to start training the AI</p>
+            <h3 className="text-base font-bold text-slate-800">No categories yet</h3>
+            <p className="text-slate-500 text-xs mt-1">Create your first category to start training the AI</p>
             <Button
               onClick={() => setShowAddModal(true)}
-              variant="glass"
-              className="mt-4 rounded-xl"
+              variant="outline"
+              className="mt-4 rounded-lg bg-white"
             >
               <Plus className="w-4 h-4 mr-2" />
               Create Category
@@ -270,10 +260,10 @@ export default function AdminCategoriesPage() {
             return (
               <motion.div
                 key={cat.id}
-                initial={{ opacity: 0, y: 20 }}
+                initial={{ opacity: 0, y: 15 }}
                 animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.05 }}
-                className="bg-slate-900/80 backdrop-blur-sm rounded-xl border border-slate-700/50 hover:border-slate-600/50 transition-all duration-300 overflow-hidden"
+                transition={{ delay: index * 0.04 }}
+                className="bg-white rounded-xl border border-slate-200 hover:border-slate-300 hover:shadow-sm transition-all duration-250 overflow-hidden"
               >
                 {/* Category Header */}
                 <div
@@ -281,15 +271,15 @@ export default function AdminCategoriesPage() {
                   onClick={() => toggleExpand(cat.id)}
                 >
                   <div className="flex items-center gap-3 md:gap-4">
-                    <div className={`w-10 h-10 md:w-12 md:h-12 rounded-xl flex items-center justify-center transition-all duration-300 ${isExpanded
-                        ? 'bg-gradient-to-br from-brand-500 to-accent-500 shadow-lg shadow-brand-500/20'
-                        : 'bg-slate-800 group-hover:bg-slate-700'
+                    <div className={`w-10 h-10 md:w-12 md:h-12 rounded-lg flex items-center justify-center transition-all duration-300 ${isExpanded
+                        ? 'bg-brand-500 text-white shadow-sm'
+                        : 'bg-slate-50 group-hover:bg-slate-100'
                       }`}>
-                      <Tags className={`w-5 h-5 md:w-6 md:h-6 ${isExpanded ? 'text-white' : 'text-slate-400 group-hover:text-slate-300'}`} />
+                      <Tags className={`w-5 h-5 md:w-6 md:h-6 ${isExpanded ? 'text-white' : 'text-slate-400 group-hover:text-slate-500'}`} />
                     </div>
                     <div>
-                      <h3 className="text-lg md:text-xl font-bold text-white">{cat.name}</h3>
-                      <p className="text-xs md:text-sm text-slate-500">
+                      <h3 className="text-base font-bold text-slate-900">{cat.name}</h3>
+                      <p className="text-xs text-slate-500 mt-0.5">
                         {cat.description || 'No description provided'}
                       </p>
                     </div>
@@ -297,11 +287,11 @@ export default function AdminCategoriesPage() {
 
                   <div className="flex items-center gap-4 md:gap-6">
                     <div className="text-right hidden sm:block">
-                      <p className="text-[9px] font-black uppercase tracking-wider text-slate-500">Training Examples</p>
-                      <p className="text-lg md:text-xl font-black text-brand-400">{categoryExamples.length}</p>
+                      <p className="text-[9px] font-bold uppercase tracking-wider text-slate-400">Training Examples</p>
+                      <p className="text-base font-extrabold text-slate-700 mt-0.5">{categoryExamples.length}</p>
                     </div>
                     <div className={`transition-transform duration-300 ${isExpanded ? 'rotate-180' : ''}`}>
-                      <ChevronDown className="w-5 h-5 text-slate-500" />
+                      <ChevronDown className="w-5 h-5 text-slate-400" />
                     </div>
                   </div>
                 </div>
@@ -313,18 +303,18 @@ export default function AdminCategoriesPage() {
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: 0.3 }}
-                      className="border-t border-slate-700/50 bg-slate-800/30"
+                      transition={{ duration: 0.25 }}
+                      className="border-t border-slate-100 bg-slate-50"
                     >
                       <div className="p-5 md:p-6 space-y-6">
                         {/* Training Examples Section */}
                         <div className="space-y-4">
                           <div className="flex items-center justify-between">
                             <div className="flex items-center gap-2">
-                              <BrainCircuit className="w-4 h-4 text-brand-400" />
-                              <h4 className="font-bold text-sm text-white">Semantic Training Phrases</h4>
+                              <BrainCircuit className="w-4 h-4 text-brand-500" />
+                              <h4 className="font-bold text-xs text-slate-700">Semantic Training Phrases</h4>
                             </div>
-                            <Badge variant="glass" className="text-[9px] bg-slate-800 border-slate-700">
+                            <Badge variant="secondary" className="text-[9px] bg-slate-100 border-slate-200 text-slate-600">
                               Vectorized Storage
                             </Badge>
                           </div>
@@ -333,11 +323,11 @@ export default function AdminCategoriesPage() {
                           {categoryExamples.length > 0 && (
                             <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
                               {categoryExamples.map((ex) => (
-                                <div key={ex.id} className="flex items-center justify-between p-3 px-4 rounded-lg bg-slate-800/50 border border-slate-700 group/example">
-                                  <span className="text-sm text-slate-300">{ex.text}</span>
+                                <div key={ex.id} className="flex items-center justify-between p-3 px-4 rounded-lg bg-white border border-slate-200 group/example">
+                                  <span className="text-xs font-medium text-slate-700">{ex.text}</span>
                                   <button
                                     onClick={(e) => { e.stopPropagation(); handleDeleteExample(cat.id, ex.id); }}
-                                    className="opacity-0 group-hover/example:opacity-100 p-1.5 hover:bg-red-500/10 text-red-400 rounded-lg transition-all duration-200"
+                                    className="p-1.5 hover:bg-red-50 text-red-500 rounded-lg transition-colors duration-200"
                                   >
                                     <Trash2 className="w-3.5 h-3.5" />
                                   </button>
@@ -350,41 +340,41 @@ export default function AdminCategoriesPage() {
                           <div className="flex gap-2">
                             <Input
                               placeholder="Add a new training phrase (e.g., 'The bathroom is flooded')..."
-                              className="bg-slate-800/50 border-slate-700 rounded-lg text-sm focus:border-brand-500"
+                              className="bg-white border-slate-200 rounded-lg text-xs focus:border-brand-500 shadow-sm"
                               value={activeCategoryId === cat.id ? newExample : (newExample || '')}
                               onChange={(e) => setNewExample(e.target.value)}
                               onKeyPress={(e) => e.key === 'Enter' && handleAddExample(cat.id)}
                             />
                             <Button
-                              variant="glass"
+                              variant="outline"
                               onClick={() => handleAddExample(cat.id)}
                               disabled={isAddingExample || !newExample}
-                              className="rounded-lg px-4 bg-brand-500/10 hover:bg-brand-500/20 border border-brand-500/20"
+                              className="rounded-lg px-4 bg-white border-slate-200 shadow-sm"
                             >
                               {isAddingExample && activeCategoryId === cat.id ? (
-                                <Loader2 className="w-4 h-4 animate-spin" />
+                                <Loader2 className="w-4 h-4 animate-spin text-slate-500" />
                               ) : (
-                                <Plus className="w-4 h-4" />
+                                <Plus className="w-4 h-4 text-slate-500" />
                               )}
                             </Button>
                           </div>
 
-                          <p className="text-[10px] text-slate-500 flex items-center gap-1">
-                            <Info className="w-3 h-3" />
+                          <p className="text-[10px] text-slate-400 flex items-center gap-1">
+                            <Info className="w-3 h-3 text-slate-400" />
                             Add 5-10 examples for optimal AI accuracy
                           </p>
                         </div>
 
                         {/* Danger Zone */}
-                        <div className="pt-4 border-t border-slate-700/50 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                        <div className="pt-4 border-t border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                           <div>
-                            <p className="text-xs font-bold text-slate-400 uppercase tracking-wider">Category Management</p>
-                            <p className="text-[10px] text-slate-600">Deleting this category will affect AI classification accuracy</p>
+                            <p className="text-xs font-bold text-slate-500 uppercase tracking-wider">Category Management</p>
+                            <p className="text-[10px] text-slate-400 mt-0.5">Deleting this category will affect AI classification accuracy</p>
                           </div>
                           <Button
-                            variant="ghost"
+                            variant="outline"
                             onClick={() => handleDeleteCategory(cat.id)}
-                            className="text-red-400 hover:bg-red-500/10 rounded-lg gap-2 text-xs font-semibold"
+                            className="text-red-600 hover:bg-red-50 rounded-lg border-red-200 gap-2 text-xs font-semibold"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                             Delete Category
@@ -409,25 +399,25 @@ export default function AdminCategoriesPage() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={() => setShowAddModal(false)}
-              className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+              className="absolute inset-0 bg-slate-900/40 backdrop-blur-sm"
             />
             <motion.div
-              initial={{ scale: 0.95, opacity: 0, y: 20 }}
+              initial={{ scale: 0.95, opacity: 0, y: 15 }}
               animate={{ scale: 1, opacity: 1, y: 0 }}
-              exit={{ scale: 0.95, opacity: 0, y: 20 }}
-              className="relative w-full max-w-lg bg-slate-900 rounded-2xl border border-slate-700 shadow-2xl overflow-hidden"
+              exit={{ scale: 0.95, opacity: 0, y: 15 }}
+              className="relative w-full max-w-lg bg-white rounded-xl border border-slate-200 shadow-xl overflow-hidden"
             >
               {/* Modal Header */}
-              <div className="flex items-center justify-between p-6 border-b border-slate-800">
+              <div className="flex items-center justify-between p-6 border-b border-slate-100">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-brand-500 to-accent-500 flex items-center justify-center">
-                    <Tags className="text-white w-5 h-5" />
+                  <div className="w-10 h-10 rounded-lg bg-brand-50 flex items-center justify-center">
+                    <Tags className="text-brand-500 w-5 h-5" />
                   </div>
-                  <h2 className="text-xl font-bold text-white">Create New Category</h2>
+                  <h2 className="text-lg font-bold text-slate-900">Create New Category</h2>
                 </div>
                 <button
                   onClick={() => setShowAddModal(false)}
-                  className="p-2 hover:bg-slate-800 rounded-lg text-slate-400 hover:text-white transition-colors"
+                  className="p-2 hover:bg-slate-100 rounded-lg text-slate-400 hover:text-slate-800 transition-colors"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -435,13 +425,13 @@ export default function AdminCategoriesPage() {
 
               {/* Modal Body */}
               <form onSubmit={handleAddCategory} className="p-6 space-y-5">
-                <div className="space-y-2">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold uppercase tracking-wider text-slate-500">
                     Category Name *
                   </label>
                   <Input
                     placeholder="e.g., Facility Maintenance"
-                    className="bg-slate-800/50 border-slate-700 rounded-lg h-11 text-base font-medium focus:border-brand-500"
+                    className="bg-white border-slate-200 rounded-lg h-11 text-slate-900 focus:border-brand-500 shadow-sm"
                     value={newCat.name}
                     onChange={(e) => setNewCat({ ...newCat, name: e.target.value })}
                     required
@@ -449,22 +439,22 @@ export default function AdminCategoriesPage() {
                   />
                 </div>
 
-                <div className="space-y-2">
-                  <label className="text-xs font-semibold uppercase tracking-wider text-slate-400">
+                <div className="space-y-1.5">
+                  <label className="text-xs font-semibold uppercase tracking-wider text-slate-500">
                     Description (Optional)
                   </label>
                   <Textarea
                     placeholder="Describe what kind of issues fall into this category..."
-                    className="bg-slate-800/50 border-slate-700 rounded-lg min-h-[100px] resize-none focus:border-brand-500"
+                    className="bg-white border-slate-200 rounded-lg min-h-[100px] resize-none focus:border-brand-500 shadow-sm text-sm"
                     value={newCat.description}
                     onChange={(e) => setNewCat({ ...newCat, description: e.target.value })}
                   />
                 </div>
 
                 {/* Tip */}
-                <div className="p-3 rounded-lg bg-brand-500/5 border border-brand-500/10">
-                  <p className="text-[11px] text-slate-400">
-                    <span className="text-brand-400 font-semibold">💡 Tip:</span> After creating, you'll be able to add training examples to help the AI recognize this category.
+                <div className="p-3.5 rounded-lg bg-brand-50 border border-brand-100">
+                  <p className="text-[11px] text-slate-600 leading-relaxed">
+                    <span className="text-brand-700 font-bold">💡 Tip:</span> After creating, you'll be able to add training examples to help the AI recognize this category.
                   </p>
                 </div>
 
@@ -472,19 +462,19 @@ export default function AdminCategoriesPage() {
                 <div className="flex gap-3 pt-4">
                   <Button
                     type="button"
-                    variant="glass"
+                    variant="outline"
                     onClick={() => setShowAddModal(false)}
-                    className="flex-1 rounded-lg h-11 bg-slate-800 border-slate-700"
+                    className="flex-1 rounded-lg h-11 bg-white border-slate-200 text-slate-700"
                   >
                     Cancel
                   </Button>
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    className="flex-1 rounded-lg h-11 bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700"
+                    className="flex-1 rounded-lg h-11 bg-brand-500 text-white hover:bg-brand-600 shadow-sm"
                   >
                     {isSubmitting ? (
-                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <Loader2 className="w-4 h-4 animate-spin text-white" />
                     ) : (
                       'Create Category'
                     )}

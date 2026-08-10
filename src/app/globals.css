@@ -12,7 +12,7 @@
   --color-brand-800: oklch(0.32 0.12 260);
   --color-brand-900: oklch(0.25 0.09 260);
 
-  --color-accent-500: oklch(0.65 0.25 340); /* Premium pink/purple accent */
+  --color-accent-500: oklch(0.58 0.18 260); /* Professional indigo/blue accent instead of pink */
 
   --color-border: var(--border);
   --color-background: var(--background);
@@ -23,30 +23,28 @@
   --color-glass-border: var(--glass-border);
   
   --radius-xl: 1rem;
-
-
   --radius-2xl: 1.5rem;
   --radius-3xl: 2rem;
 }
 
 :root {
-  --background: oklch(0.98 0.01 260);
-  --foreground: oklch(0.2 0.02 260);
-  --card: oklch(1 0 0 / 0.8);
-  --card-foreground: oklch(0.2 0.02 260);
-  --border: oklch(0.9 0.02 260);
-  --glass: oklch(1 0 0 / 0.6);
-  --glass-border: oklch(1 0 0 / 0.3);
+  --background: oklch(0.98 0.005 260); /* Slate-50 off-white background */
+  --foreground: oklch(0.25 0.01 260); /* Slate-800 dark text */
+  --card: oklch(1 0 0); /* Pure white cards */
+  --card-foreground: oklch(0.25 0.01 260);
+  --border: oklch(0.92 0.01 260); /* Slate-200 border */
+  --glass: oklch(1 0 0 / 0.95);
+  --glass-border: oklch(0.92 0.01 260);
 }
 
 .dark {
-  --background: oklch(0.12 0.02 260);
-  --foreground: oklch(0.98 0.01 260);
-  --card: oklch(0.18 0.03 260 / 0.8);
-  --card-foreground: oklch(0.98 0.01 260);
-  --border: oklch(0.25 0.04 260);
-  --glass: oklch(0.15 0.03 260 / 0.5);
-  --glass-border: oklch(1 1 1 / 0.1);
+  --background: oklch(0.98 0.005 260);
+  --foreground: oklch(0.25 0.01 260);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.25 0.01 260);
+  --border: oklch(0.92 0.01 260);
+  --glass: oklch(1 0 0 / 0.95);
+  --glass-border: oklch(0.92 0.01 260);
 }
 
 @layer base {

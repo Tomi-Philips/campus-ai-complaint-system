@@ -82,15 +82,14 @@ export default function AdminUsersPage() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <Badge variant="glass" className="bg-gradient-to-r from-brand-500/10 to-accent-500/10 text-brand-400 border-brand-500/20 flex gap-2">
-              <Users className="w-3 h-3 mr-1" />
+            <Badge variant="primary" className="flex gap-2">
               Access Management
             </Badge>
           </div>
-          <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-2 bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
+          <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight mb-2 text-slate-900">
             User Management
           </h1>
-          <p className="text-slate-400 font-medium text-sm md:text-base">
+          <p className="text-slate-500 text-xs md:text-sm">
             Oversee campus accounts and manage administrative access levels
           </p>
         </div>
@@ -98,38 +97,38 @@ export default function AdminUsersPage() {
 
       {/* Stats Overview */}
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 md:gap-4">
-        <div className="bg-slate-900/80 backdrop-blur-sm rounded-xl p-4 border border-slate-700/50">
+        <div className="bg-white rounded-xl p-4 border border-slate-200 shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-[10px] font-black uppercase tracking-wider text-slate-500">Total Users</p>
-              <p className="text-2xl font-black text-white">{stats.total}</p>
+              <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Total Users</p>
+              <p className="text-2xl font-extrabold text-slate-900 mt-1">{stats.total}</p>
             </div>
-            <div className="w-10 h-10 rounded-xl bg-brand-500/10 flex items-center justify-center">
-              <Users className="w-5 h-5 text-brand-400" />
+            <div className="w-10 h-10 rounded-lg bg-brand-50 flex items-center justify-center">
+              <Users className="w-5 h-5 text-brand-500" />
             </div>
           </div>
         </div>
 
-        <div className="bg-slate-900/80 backdrop-blur-sm rounded-xl p-4 border border-slate-700/50">
+        <div className="bg-white rounded-xl p-4 border border-slate-200 shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-[10px] font-black uppercase tracking-wider text-slate-500">Administrators</p>
-              <p className="text-2xl font-black text-purple-400">{stats.admins}</p>
+              <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Administrators</p>
+              <p className="text-2xl font-extrabold text-purple-600 mt-1">{stats.admins}</p>
             </div>
-            <div className="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center">
-              <Crown className="w-5 h-5 text-purple-400" />
+            <div className="w-10 h-10 rounded-lg bg-purple-50 flex items-center justify-center">
+              <Crown className="w-5 h-5 text-purple-500" />
             </div>
           </div>
         </div>
 
-        <div className="bg-slate-900/80 backdrop-blur-sm rounded-xl p-4 border border-slate-700/50">
+        <div className="bg-white rounded-xl p-4 border border-slate-200 shadow-sm">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-[10px] font-black uppercase tracking-wider text-slate-500">Students</p>
-              <p className="text-2xl font-black text-emerald-400">{stats.students}</p>
+              <p className="text-[10px] font-bold uppercase tracking-wider text-slate-400">Students</p>
+              <p className="text-2xl font-extrabold text-emerald-600 mt-1">{stats.students}</p>
             </div>
-            <div className="w-10 h-10 rounded-xl bg-emerald-500/10 flex items-center justify-center">
-              <GraduationCap className="w-5 h-5 text-emerald-400" />
+            <div className="w-10 h-10 rounded-lg bg-emerald-50 flex items-center justify-center">
+              <GraduationCap className="w-5 h-5 text-emerald-500" />
             </div>
           </div>
         </div>
@@ -138,10 +137,10 @@ export default function AdminUsersPage() {
       {/* Search and Filter Bar */}
       <div className="flex flex-col sm:flex-row gap-3">
         <div className="relative flex-1">
-          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500" />
+          <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400" />
           <Input
             placeholder="Search by name or email..."
-            className="pl-11 bg-slate-900/80 border-slate-700 rounded-xl h-11 text-sm focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20"
+            className="pl-11 bg-white border-slate-200 rounded-lg h-11 text-sm text-slate-900 placeholder:text-slate-400 focus:border-brand-500 shadow-sm"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -151,20 +150,20 @@ export default function AdminUsersPage() {
           <select
             value={roleFilter}
             onChange={(e) => setRoleFilter(e.target.value)}
-            className="appearance-none bg-slate-900/80 border border-slate-700 rounded-xl px-4 pr-10 h-11 text-sm font-semibold text-slate-300 focus:outline-none focus:border-brand-500 cursor-pointer"
+            className="appearance-none bg-white border border-slate-200 rounded-lg px-4 pr-10 h-11 text-sm font-semibold text-slate-600 focus:outline-none focus:border-brand-500 cursor-pointer shadow-sm"
           >
             <option value="all">All Roles</option>
             <option value="admin">Administrators</option>
             <option value="student">Students</option>
           </select>
-          <Filter className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-500 pointer-events-none" />
+          <Filter className="absolute right-3 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400 pointer-events-none" />
         </div>
       </div>
 
       {/* Users Table */}
-      <div className="bg-slate-900/80 backdrop-blur-sm rounded-xl border border-slate-700/50 overflow-hidden">
+      <div className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
         {/* Table Header */}
-        <div className="grid grid-cols-12 gap-4 p-4 bg-slate-800/30 border-b border-slate-700/50 text-[10px] font-black uppercase tracking-wider text-slate-500">
+        <div className="grid grid-cols-12 gap-4 p-4 bg-slate-50 border-b border-slate-100 text-[10px] font-bold uppercase tracking-wider text-slate-400">
           <div className="col-span-5 md:col-span-5 px-2">User</div>
           <div className="col-span-3 md:col-span-2 px-2">Role</div>
           <div className="col-span-3 md:col-span-3 px-2 hidden sm:block">Joined</div>
@@ -172,20 +171,20 @@ export default function AdminUsersPage() {
         </div>
 
         {/* Table Body */}
-        <div className="divide-y divide-slate-700/50">
+        <div className="divide-y divide-slate-100">
           {isLoading ? (
             <div className="space-y-2 p-4">
               {[1, 2, 3, 4].map(i => (
-                <div key={i} className="h-16 bg-slate-800/30 rounded-lg animate-pulse" />
+                <div key={i} className="h-16 bg-slate-50 rounded-lg animate-pulse" />
               ))}
             </div>
           ) : filteredUsers.length === 0 ? (
             <div className="flex flex-col items-center justify-center py-16 text-center">
-              <div className="w-16 h-16 rounded-full bg-slate-800 flex items-center justify-center mb-4">
-                <Users className="w-8 h-8 text-slate-600" />
+              <div className="w-16 h-16 rounded-full bg-slate-50 flex items-center justify-center mb-4">
+                <Users className="w-8 h-8 text-slate-300" />
               </div>
-              <h3 className="text-lg font-bold text-slate-400">No users found</h3>
-              <p className="text-slate-500 text-sm mt-1">
+              <h3 className="text-base font-bold text-slate-800">No users found</h3>
+              <p className="text-slate-500 text-xs mt-1">
                 {searchTerm ? 'Try a different search term' : 'No users match the selected filters'}
               </p>
             </div>
@@ -196,20 +195,20 @@ export default function AdminUsersPage() {
                 initial={{ opacity: 0, y: 10 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.03 }}
-                className="grid grid-cols-12 gap-4 p-4 items-center hover:bg-slate-800/30 transition-all duration-200 group"
+                className="grid grid-cols-12 gap-4 p-4 items-center hover:bg-slate-50 transition-colors group"
               >
                 {/* User Info */}
                 <div className="col-span-5 md:col-span-5 flex items-center gap-3 min-w-0">
-                  <div className="w-9 h-9 rounded-lg bg-gradient-to-br from-brand-500/20 to-accent-500/20 flex items-center justify-center flex-shrink-0">
-                    <UserCircle className="w-5 h-5 text-brand-400" />
+                  <div className="w-9 h-9 rounded-lg bg-brand-50 flex items-center justify-center flex-shrink-0">
+                    <UserCircle className="w-5 h-5 text-brand-500" />
                   </div>
                   <div className="min-w-0 flex-1">
-                    <p className="text-sm font-bold text-white truncate">
+                    <p className="text-sm font-bold text-slate-900 truncate">
                       {user.full_name || 'Unnamed User'}
                     </p>
                     <div className="flex items-center gap-1 mt-0.5">
-                      <Mail className="w-2.5 h-2.5 text-slate-500" />
-                      <p className="text-[10px] text-slate-500 truncate">{user.email}</p>
+                      <Mail className="w-2.5 h-2.5 text-slate-400" />
+                      <p className="text-[10px] text-slate-400 truncate">{user.email}</p>
                     </div>
                   </div>
                 </div>
@@ -217,22 +216,22 @@ export default function AdminUsersPage() {
                 {/* Role Badge */}
                 <div className="col-span-3 md:col-span-2">
                   {(user.role === 'admin' || user.role === 'super_admin') ? (
-                    <Badge className="bg-purple-500/10 text-purple-400 border-purple-500/20 gap-1.5 py-1 px-2.5 rounded-lg flex gap-2">
-                      <Shield className="w-3 h-3" />
+                    <Badge className="bg-purple-50 text-purple-700 border border-purple-100 gap-1.5 py-1 px-2.5 rounded-lg flex gap-2">
+                      <Shield className="w-3 h-3 text-purple-500" />
                       <span className="text-[10px] font-bold uppercase">Admin</span>
                     </Badge>
                   ) : (
-                    <Badge className="bg-emerald-500/10 text-emerald-400 border-emerald-500/20 gap-1.5 py-1 px-2.5 rounded-lg flex gap-2">
-                      <GraduationCap className="w-3 h-3" />
+                    <Badge className="bg-emerald-50 text-emerald-700 border border-emerald-100 gap-1.5 py-1 px-2.5 rounded-lg flex gap-2">
+                      <GraduationCap className="w-3 h-3 text-emerald-500" />
                       <span className="text-[10px] font-bold uppercase">Student</span>
                     </Badge>
                   )}
                 </div>
 
                 {/* Join Date */}
-                <div className="col-span-3 md:col-span-3 hidden sm:flex items-center gap-1.5">
-                  <Calendar className="w-3 h-3 text-slate-500" />
-                  <span className="text-xs text-slate-400">
+                <div className="col-span-3 md:col-span-3 hidden sm:flex items-center gap-1.5 text-slate-400">
+                  <Calendar className="w-3 h-3" />
+                  <span className="text-xs">
                     {new Date(user.created_at).toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' })}
                   </span>
                 </div>
@@ -240,17 +239,17 @@ export default function AdminUsersPage() {
                 {/* Actions */}
                 <div className="col-span-4 md:col-span-2 flex items-center justify-end gap-2">
                   <Button
-                    variant="glass"
+                    variant="outline"
                     size="sm"
                     onClick={() => handleRoleChange(user.id, user.role)}
                     disabled={updatingId === user.id}
                     className={`h-8 px-3 text-[10px] font-bold uppercase tracking-wider rounded-lg transition-all ${user.role === 'admin' || user.role === 'super_admin'
-                      ? 'bg-amber-500/10 hover:bg-amber-500/20 text-amber-400 border border-amber-500/20'
-                      : 'bg-purple-500/10 hover:bg-purple-500/20 text-purple-400 border border-purple-500/20'
+                      ? 'bg-amber-50 hover:bg-amber-100 text-amber-700 border border-amber-200'
+                      : 'bg-purple-50 hover:bg-purple-100 text-purple-700 border border-purple-200'
                       }`}
                   >
                     {updatingId === user.id ? (
-                      <Loader2 className="w-3 h-3 animate-spin" />
+                      <Loader2 className="w-3 h-3 animate-spin text-slate-500" />
                     ) : user.role === 'admin' || user.role === 'super_admin' ? (
                       'Revoke Admin'
                     ) : (
@@ -258,7 +257,7 @@ export default function AdminUsersPage() {
                     )}
                   </Button>
 
-                  <button className="p-2 rounded-lg hover:bg-slate-700 text-slate-500 hover:text-slate-300 transition-all opacity-0 group-hover:opacity-100">
+                  <button className="p-2 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-700 transition-colors opacity-0 group-hover:opacity-100">
                     <MoreVertical className="w-4 h-4" />
                   </button>
                 </div>
@@ -269,14 +268,14 @@ export default function AdminUsersPage() {
 
         {/* Table Footer */}
         {!isLoading && filteredUsers.length > 0 && (
-          <div className="border-t border-slate-700/50 p-4 bg-slate-800/20">
-            <div className="flex items-center justify-between text-[10px] text-slate-500">
+          <div className="border-t border-slate-100 p-4 bg-slate-50/50">
+            <div className="flex items-center justify-between text-[10px] text-slate-400 font-semibold">
               <div className="flex items-center gap-2">
-                <UserCheck className="w-3 h-3" />
+                <UserCheck className="w-3 h-3 text-slate-400" />
                 <span>{filteredUsers.length} users displayed</span>
               </div>
               <div className="flex items-center gap-2">
-                <Clock className="w-3 h-3" />
+                <Clock className="w-3 h-3 text-slate-400" />
                 <span>Last sync: Just now</span>
               </div>
             </div>

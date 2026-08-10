@@ -11,18 +11,13 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-  PieChart,
-  Pie,
   Cell,
-  LineChart,
-  Line,
   AreaChart,
   Area
 } from 'recharts';
 import {
   BrainCircuit,
   TrendingUp,
-  Zap,
   Activity,
   Target,
   Cpu,
@@ -32,12 +27,21 @@ import {
   ShieldCheck,
   Clock,
   ArrowUpRight,
-  Database
+  Database,
+  Download
 } from 'lucide-react';
 import { Badge } from '@/components/ui/badge';
+import { Button } from '@/components/ui/button';
+
+interface AdminStats {
+  total: number;
+  resolved: number;
+  recent: unknown[];
+  categories: unknown[];
+}
 
 export default function AdminAnalyticsPage() {
-  const [stats, setStats] = useState<any>(null);
+  const [stats, setStats] = useState<AdminStats | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -93,31 +97,75 @@ export default function AdminAnalyticsPage() {
     { name: 'Facilities', accuracy: 89, color: '#f59e0b' }
   ];
 
+  const handleExportReport = () => {
+    const lines: string[] = [];
+    lines.push('AI Analytics Report');
+    lines.push(`Generated: ${new Date().toISOString()}`);
+    lines.push('');
+    lines.push('## Key Metrics');
+    lines.push('Metric,Value,Trend');
+    lines.push(`Semantic Accuracy,94.2%,+2.1%`);
+    lines.push(`Inference Speed,124ms,-15ms`);
+    lines.push(`Clustering Density,0.84,+0.03`);
+    lines.push('');
+    lines.push('## Volume Forecast (Last 7 Days)');
+    lines.push('Day,Count');
+    volumeData.forEach((v) => lines.push(`${v.name},${v.count}`));
+    lines.push('');
+    lines.push('## Confidence Distribution');
+    lines.push('Range,Count,Color');
+    confidenceData.forEach((c) => lines.push(`${c.range},${c.count},${c.color}`));
+    lines.push('');
+    lines.push('## Category Accuracy');
+    lines.push('Category,Accuracy(%),Color');
+    categoryAccuracy.forEach((c) => lines.push(`${c.name},${c.accuracy},${c.color}`));
+    lines.push('');
+    lines.push('## Overall Stats');
+    lines.push('Metric,Value');
+    lines.push(`Total Complaints,${stats?.total ?? 'N/A'}`);
+    lines.push(`Resolved,${stats?.resolved ?? 'N/A'}`);
+    lines.push(`Overall Accuracy,92.8%`);
+    lines.push(`Model Version,v2.4`);
+
+    const csvContent = lines.join('\n');
+    const blob = new Blob([csvContent], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `analytics-report-${new Date().toISOString().slice(0, 10)}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
   return (
     <div className="space-y-6 md:space-y-8 pb-20">
       {/* Header Section */}
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <Badge variant="glass" className="bg-gradient-to-r from-brand-500/10 to-accent-500/10 text-brand-400 border-brand-500/20 flex gap-2">
+            <Badge variant="primary" className="flex gap-2">
               <BrainCircuit className="w-3 h-3 mr-1" />
               AI Intelligence Dashboard
             </Badge>
           </div>
-          <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-2 bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
-            AI Analytics
+          <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-2 bg-gradient-to-r from-slate-900 to-slate-600 bg-clip-text text-transparent">
+            AI Analytics & Reports
           </h1>
-          <p className="text-slate-400 font-medium text-sm md:text-base">
+          <p className="text-slate-500 font-medium text-sm md:text-base">
             Deep semantic insights and predictive trend analysis powered by machine learning
           </p>
         </div>
-        <div className="flex items-center gap-2">
-          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-800/50 border border-slate-700">
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100 border border-slate-200">
             <div className="relative">
               <div className="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse" />
             </div>
-            <span className="text-[10px] font-semibold text-slate-400">Live Inference</span>
+            <span className="text-[10px] font-semibold text-slate-500">Live Inference</span>
           </div>
+          <Button variant="outline" size="sm" className="gap-2" onClick={handleExportReport}>
+            <Download className="w-4 h-4" />
+            Export Report
+          </Button>
         </div>
       </div>
 
@@ -134,7 +182,7 @@ export default function AdminAnalyticsPage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: i * 0.1 }}
             whileHover={{ y: -2 }}
-            className="group relative bg-slate-900/80 backdrop-blur-sm rounded-xl border border-slate-700/50 p-5 md:p-6 overflow-hidden"
+            className="group relative bg-white rounded-xl border border-slate-200 p-5 md:p-6 shadow-sm overflow-hidden"
           >
             <div className={`absolute inset-0 bg-gradient-to-br ${metric.color} opacity-0 group-hover:opacity-5 transition-opacity duration-500`} />
 
@@ -142,18 +190,18 @@ export default function AdminAnalyticsPage() {
               <div className={`w-10 h-10 rounded-xl bg-gradient-to-br ${metric.color} flex items-center justify-center shadow-lg`}>
                 <metric.icon className="text-white w-5 h-5" />
               </div>
-              <div className="flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-emerald-500/10 border border-emerald-500/20">
-                <ArrowUpRight className="w-2.5 h-2.5 text-emerald-400" />
-                <span className="text-[9px] font-bold text-emerald-400">{metric.trend}</span>
+              <div className="flex items-center gap-0.5 px-2 py-0.5 rounded-full bg-emerald-50 border border-emerald-200">
+                <ArrowUpRight className="w-2.5 h-2.5 text-emerald-500" />
+                <span className="text-[9px] font-bold text-emerald-600">{metric.trend}</span>
               </div>
             </div>
 
             <div>
-              <p className="text-[10px] font-black uppercase tracking-wider text-slate-500">{metric.label}</p>
-              <p className="text-2xl md:text-3xl font-black text-white mt-1">{metric.value}</p>
+              <p className="text-[10px] font-black uppercase tracking-wider text-slate-400">{metric.label}</p>
+              <p className="text-2xl md:text-3xl font-black text-slate-900 mt-1">{metric.value}</p>
             </div>
 
-            <div className={`absolute -right-6 -bottom-6 w-20 h-20 bg-${metric.bgGlow}-500/10 rounded-full blur-2xl`} />
+            <div className={`absolute -right-6 -bottom-6 w-20 h-20 bg-${metric.bgGlow}-100 rounded-full blur-2xl`} />
           </motion.div>
         ))}
       </div>
@@ -161,13 +209,13 @@ export default function AdminAnalyticsPage() {
       {/* Charts Grid */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
         {/* Volume Forecast Chart */}
-        <div className="bg-slate-900/80 backdrop-blur-sm rounded-xl border border-slate-700/50 p-5 md:p-6">
+        <div className="bg-white rounded-xl border border-slate-200 p-5 md:p-6 shadow-sm">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-brand-400" />
-              <h3 className="text-base md:text-lg font-bold text-white">Volume Forecast</h3>
+              <TrendingUp className="w-5 h-5 text-brand-500" />
+              <h3 className="text-base md:text-lg font-bold text-slate-900">Volume Forecast</h3>
             </div>
-            <Badge variant="glass" className="bg-slate-800 text-slate-300 border-slate-700 text-[9px]">
+            <Badge variant="outline" className="bg-slate-100 text-slate-600 border-slate-200 text-[9px]">
               Last 7 Days
             </Badge>
           </div>
@@ -181,28 +229,29 @@ export default function AdminAnalyticsPage() {
                     <stop offset="95%" stopColor="#8b5cf6" stopOpacity={0} />
                   </linearGradient>
                 </defs>
-                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#334155" />
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#e2e8f0" />
                 <XAxis
                   dataKey="name"
                   axisLine={false}
                   tickLine={false}
-                  tick={{ fill: '#64748b', fontSize: 10, fontWeight: 600 }}
+                  tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 600 }}
                   dy={10}
                 />
                 <YAxis
                   axisLine={false}
                   tickLine={false}
-                  tick={{ fill: '#64748b', fontSize: 10, fontWeight: 600 }}
+                  tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 600 }}
                 />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#1e293b',
-                    border: '1px solid #334155',
+                    backgroundColor: '#ffffff',
+                    border: '1px solid #e2e8f0',
                     borderRadius: '12px',
+                    boxShadow: '0 4px 12px -2px rgba(0,0,0,0.1)',
                     padding: '8px 12px'
                   }}
-                  itemStyle={{ color: '#a78bfa', fontWeight: 'bold' }}
-                  labelStyle={{ color: '#94a3b8', fontSize: '11px' }}
+                  itemStyle={{ color: '#8b5cf6', fontWeight: 'bold' }}
+                  labelStyle={{ color: '#64748b', fontSize: '11px' }}
                 />
                 <Area
                   type="monotone"
@@ -216,22 +265,22 @@ export default function AdminAnalyticsPage() {
             </ResponsiveContainer>
           </div>
 
-          <div className="mt-4 pt-3 border-t border-slate-700/50">
+          <div className="mt-4 pt-3 border-t border-slate-200">
             <div className="flex items-center justify-between text-[10px]">
-              <span className="text-slate-500">Peak activity forecast</span>
-              <span className="text-brand-400 font-semibold">Friday @ 2-4 PM</span>
+              <span className="text-slate-400">Peak activity forecast</span>
+              <span className="text-brand-500 font-semibold">Friday @ 2-4 PM</span>
             </div>
           </div>
         </div>
 
         {/* AI Confidence Distribution */}
-        <div className="bg-slate-900/80 backdrop-blur-sm rounded-xl border border-slate-700/50 p-5 md:p-6">
+        <div className="bg-white rounded-xl border border-slate-200 p-5 md:p-6 shadow-sm">
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-2">
-              <BarChart3 className="w-5 h-5 text-accent-400" />
-              <h3 className="text-base md:text-lg font-bold text-white">Confidence Distribution</h3>
+              <BarChart3 className="w-5 h-5 text-accent-500" />
+              <h3 className="text-base md:text-lg font-bold text-slate-900">Confidence Distribution</h3>
             </div>
-            <Badge variant="glass" className="bg-slate-800 text-slate-300 border-slate-700 text-[9px]">
+            <Badge variant="outline" className="bg-slate-100 text-slate-600 border-slate-200 text-[9px]">
               Model v2.4
             </Badge>
           </div>
@@ -239,30 +288,31 @@ export default function AdminAnalyticsPage() {
           <div className="h-[280px] w-full">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={confidenceData} layout="vertical" margin={{ left: 20 }}>
-                <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} stroke="#334155" />
+                <CartesianGrid strokeDasharray="3 3" horizontal={true} vertical={false} stroke="#e2e8f0" />
                 <XAxis
                   type="number"
                   axisLine={false}
                   tickLine={false}
-                  tick={{ fill: '#64748b', fontSize: 10, fontWeight: 600 }}
+                  tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 600 }}
                 />
                 <YAxis
                   type="category"
                   dataKey="range"
                   axisLine={false}
                   tickLine={false}
-                  tick={{ fill: '#94a3b8', fontSize: 10, fontWeight: 500 }}
+                  tick={{ fill: '#64748b', fontSize: 10, fontWeight: 500 }}
                   width={60}
                 />
                 <Tooltip
                   contentStyle={{
-                    backgroundColor: '#1e293b',
-                    border: '1px solid #334155',
+                    backgroundColor: '#ffffff',
+                    border: '1px solid #e2e8f0',
                     borderRadius: '12px',
+                    boxShadow: '0 4px 12px -2px rgba(0,0,0,0.1)',
                     padding: '8px 12px'
                   }}
                   itemStyle={{ fontWeight: 'bold' }}
-                  labelStyle={{ color: '#94a3b8', fontSize: '11px' }}
+                  labelStyle={{ color: '#64748b', fontSize: '11px' }}
                 />
                 <Bar dataKey="count" radius={[0, 8, 8, 0]}>
                   {confidenceData.map((entry, index) => (
@@ -278,20 +328,20 @@ export default function AdminAnalyticsPage() {
       {/* Category Accuracy & Additional Insights */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8">
         {/* Category Accuracy */}
-        <div className="bg-slate-900/80 backdrop-blur-sm rounded-xl border border-slate-700/50 p-5 md:p-6">
+        <div className="bg-white rounded-xl border border-slate-200 p-5 md:p-6 shadow-sm">
           <div className="flex items-center gap-2 mb-6">
-            <Target className="w-5 h-5 text-emerald-400" />
-            <h3 className="text-base md:text-lg font-bold text-white">Category Accuracy</h3>
+            <Target className="w-5 h-5 text-emerald-500" />
+            <h3 className="text-base md:text-lg font-bold text-slate-900">Category Accuracy</h3>
           </div>
 
           <div className="space-y-4">
             {categoryAccuracy.map((cat, i) => (
               <div key={i} className="space-y-1.5">
                 <div className="flex items-center justify-between text-sm">
-                  <span className="text-slate-300 font-medium">{cat.name}</span>
-                  <span className="text-white font-bold">{cat.accuracy}%</span>
+                  <span className="text-slate-600 font-medium">{cat.name}</span>
+                  <span className="text-slate-900 font-bold">{cat.accuracy}%</span>
                 </div>
-                <div className="w-full bg-slate-800 h-1.5 rounded-full overflow-hidden">
+                <div className="w-full bg-slate-100 h-1.5 rounded-full overflow-hidden">
                   <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: `${cat.accuracy}%` }}
@@ -304,34 +354,34 @@ export default function AdminAnalyticsPage() {
             ))}
           </div>
 
-          <div className="mt-6 pt-4 border-t border-slate-700/50">
+          <div className="mt-6 pt-4 border-t border-slate-200">
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <BrainCircuit className="w-3.5 h-3.5 text-brand-400" />
-                <span className="text-[10px] text-slate-500">Overall Accuracy</span>
+                <BrainCircuit className="w-3.5 h-3.5 text-brand-500" />
+                <span className="text-[10px] text-slate-400">Overall Accuracy</span>
               </div>
-              <span className="text-sm font-bold text-brand-400">92.8%</span>
+              <span className="text-sm font-bold text-brand-500">92.8%</span>
             </div>
           </div>
         </div>
 
         {/* Semantic Insights Card */}
-        <div className="bg-gradient-to-br from-brand-500/10 to-accent-500/10 rounded-xl border border-brand-500/20 p-5 md:p-6">
+        <div className="bg-gradient-to-br from-brand-50 to-accent-50 rounded-xl border border-brand-200 p-5 md:p-6 shadow-sm">
           <div className="flex items-start gap-4">
             <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-brand-500 to-accent-500 flex items-center justify-center flex-shrink-0 shadow-lg">
               <Sparkles className="w-6 h-6 text-white" />
             </div>
             <div className="flex-1">
-              <h3 className="text-base md:text-lg font-bold text-white mb-2">Semantic Cluster Analysis</h3>
-              <p className="text-sm text-slate-400 leading-relaxed mb-4">
+              <h3 className="text-base md:text-lg font-bold text-slate-900 mb-2">Semantic Cluster Analysis</h3>
+              <p className="text-sm text-slate-500 leading-relaxed mb-4">
                 AI has identified 3 emerging complaint patterns this week. Student concerns about dining services show 34% semantic similarity, suggesting a systemic issue.
               </p>
               <div className="flex items-center gap-3 pt-2">
-                <Badge variant="glass" className="bg-slate-800/50 text-slate-300 border-slate-700">
+                <Badge variant="outline" className="bg-white text-slate-600 border-slate-200">
                   <Database className="w-3 h-3 mr-1" />
                   42 clusters active
                 </Badge>
-                <Badge variant="glass" className="bg-slate-800/50 text-slate-300 border-slate-700">
+                <Badge variant="outline" className="bg-white text-slate-600 border-slate-200">
                   <Activity className="w-3 h-3 mr-1" />
                   94% coherence
                 </Badge>
@@ -343,13 +393,13 @@ export default function AdminAnalyticsPage() {
 
       {/* Footer Stats */}
       <div className="flex flex-wrap justify-center gap-3 pt-4">
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-800/30 border border-slate-700/50">
-          <Clock className="w-3 h-3 text-slate-500" />
-          <span className="text-[9px] text-slate-500">Model Updated: Today 09:42 AM</span>
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100 border border-slate-200">
+          <Clock className="w-3 h-3 text-slate-400" />
+          <span className="text-[9px] text-slate-400">Model Updated: Today 09:42 AM</span>
         </div>
-        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-800/30 border border-slate-700/50">
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-slate-100 border border-slate-200">
           <ShieldCheck className="w-3 h-3 text-emerald-500" />
-          <span className="text-[9px] text-slate-500">Validation Accuracy: 94.2%</span>
+          <span className="text-[9px] text-slate-400">Validation Accuracy: 94.2%</span>
         </div>
       </div>
     </div>

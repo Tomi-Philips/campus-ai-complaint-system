@@ -100,26 +100,24 @@ export default function AdminAnnouncementsPage() {
   return (
     <div className="space-y-6 md:space-y-8 pb-20">
       {/* Header Section */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-2">
-            <Badge variant="glass" className="bg-gradient-to-r from-brand-500/10 to-accent-500/10 text-brand-400 border-brand-500/20 flex gap-2">
-              <Megaphone className="w-3 h-3 mr-1" />
+            <Badge variant="primary" className="flex gap-2">
               Campus Communications
             </Badge>
           </div>
-          <h1 className="text-3xl md:text-4xl font-black tracking-tight mb-2 bg-gradient-to-r from-white to-slate-300 bg-clip-text text-transparent">
+          <h1 className="text-2xl md:text-3xl font-extrabold tracking-tight mb-2 text-slate-900">
             Broadcasting
           </h1>
-          <p className="text-slate-400 font-medium text-sm md:text-base">
+          <p className="text-slate-500 text-xs md:text-sm">
             Create and manage institutional announcements across campus
           </p>
         </div>
         <Button
-          variant="secondary"
-          className={`gap-2 rounded-xl transition-all duration-200 ${isAdding
-            ? 'bg-slate-800 text-slate-400 hover:bg-slate-700'
-            : 'bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white shadow-lg shadow-brand-500/25'
+          className={`gap-2 rounded-lg transition-all duration-200 h-10 px-4 shadow-sm ${isAdding
+            ? 'bg-slate-100 text-slate-600 hover:bg-slate-200 border border-slate-200'
+            : 'bg-brand-500 text-white hover:bg-brand-600'
             }`}
           onClick={() => setIsAdding(!isAdding)}
         >
@@ -141,37 +139,37 @@ export default function AdminAnnouncementsPage() {
       <AnimatePresence>
         {isAdding && (
           <motion.div
-            initial={{ opacity: 0, height: 0, y: -20 }}
+            initial={{ opacity: 0, height: 0, y: -10 }}
             animate={{ opacity: 1, height: 'auto', y: 0 }}
-            exit={{ opacity: 0, height: 0, y: -20 }}
+            exit={{ opacity: 0, height: 0, y: -10 }}
             transition={{ duration: 0.3 }}
             className="overflow-hidden"
           >
-            <div className="bg-slate-900/80 backdrop-blur-sm rounded-xl border border-slate-700/50 p-5 md:p-6">
+            <div className="bg-white rounded-xl border border-slate-200 p-5 md:p-6 shadow-sm">
               <div className="flex items-center gap-2 mb-5">
-                <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-brand-500 to-accent-500 flex items-center justify-center">
-                  <Megaphone className="w-4 h-4 text-white" />
+                <div className="w-8 h-8 rounded-lg bg-brand-50 flex items-center justify-center">
+                  <Megaphone className="w-4 h-4 text-brand-500" />
                 </div>
-                <h3 className="font-bold text-white">Create New Announcement</h3>
+                <h3 className="font-bold text-slate-900">Create New Announcement</h3>
               </div>
 
               <form onSubmit={handleSubmit} className="space-y-5">
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <Input
                     label="Broadcast Title"
-                    labelClassName="text-xs font-semibold uppercase tracking-wider text-slate-400"
+                    labelClassName="text-xs font-semibold uppercase tracking-wider text-slate-500"
                     placeholder="e.g., End of Semester Break"
                     value={formData.title}
                     onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                     required
-                    className="bg-slate-800/50 border-slate-700 rounded-lg focus:border-brand-500"
+                    className="bg-white border-slate-200 rounded-lg focus:border-brand-500 text-slate-900 placeholder:text-slate-400"
                   />
                   <div className="space-y-1.5">
-                    <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 ml-1">Type</label>
+                    <label className="text-xs font-semibold uppercase tracking-wider text-slate-500 ml-1">Type</label>
                     <select
                       value={formData.type}
                       onChange={(e) => setFormData({ ...formData, type: e.target.value as any })}
-                      className="w-full bg-slate-800/50 border border-slate-700 rounded-lg px-4 py-2.5 outline-none transition-all focus:border-brand-500 focus:ring-2 focus:ring-brand-500/20 text-white text-sm"
+                      className="w-full bg-white border border-slate-200 rounded-lg px-4 py-2.5 outline-none transition-all focus:border-brand-500 text-slate-900 text-sm shadow-sm"
                     >
                       <option value="general">📢 General</option>
                       <option value="academic">📚 Academic</option>
@@ -184,51 +182,50 @@ export default function AdminAnnouncementsPage() {
 
                 <Textarea
                   label="Content"
-                  labelClassName="text-xs font-semibold uppercase tracking-wider text-slate-400"
+                  labelClassName="text-xs font-semibold uppercase tracking-wider text-slate-500"
                   placeholder="Write your broadcast content here..."
                   value={formData.content}
                   onChange={(e) => setFormData({ ...formData, content: e.target.value })}
                   required
-                  className="bg-slate-800/50 border-slate-700 rounded-lg min-h-[120px] focus:border-brand-500"
+                  className="bg-white border-slate-200 rounded-lg min-h-[120px] focus:border-brand-500 text-slate-900 placeholder:text-slate-400 text-sm"
                 />
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
                   <Input
                     label="Banner Image URL (Optional)"
-                    labelClassName="text-xs font-semibold uppercase tracking-wider text-slate-400"
+                    labelClassName="text-xs font-semibold uppercase tracking-wider text-slate-500"
                     placeholder="https://example.com/banner.jpg"
                     value={formData.banner_url}
                     onChange={(e) => setFormData({ ...formData, banner_url: e.target.value })}
-                    className="bg-slate-800/50 border-slate-700 rounded-lg focus:border-brand-500"
+                    className="bg-white border-slate-200 rounded-lg focus:border-brand-500 text-slate-900 placeholder:text-slate-400"
                   />
                   <div className="flex items-end">
                     <button
                       type="button"
                       onClick={() => setFormData({ ...formData, is_pinned: !formData.is_pinned })}
-                      className={`flex items-center gap-2 px-4 py-2.5 rounded-lg border transition-all font-semibold text-sm ${formData.is_pinned
-                        ? 'bg-amber-500/10 border-amber-500 text-amber-400 shadow-lg shadow-amber-500/10'
-                        : 'bg-slate-800/50 border-slate-700 text-slate-400 hover:text-slate-300'
+                      className={`flex items-center gap-2 px-4 py-2.5 rounded-lg border transition-all font-semibold text-sm shadow-sm ${formData.is_pinned
+                        ? 'bg-amber-50 border-amber-250 text-amber-700'
+                        : 'bg-white border-slate-200 text-slate-600 hover:bg-slate-50'
                         }`}
                     >
-                      <Pin className={`w-4 h-4 ${formData.is_pinned ? 'fill-amber-400' : ''}`} />
+                      <Pin className={`w-4 h-4 ${formData.is_pinned ? 'fill-amber-500 text-amber-500' : 'text-slate-400'}`} />
                       {formData.is_pinned ? 'Pinned' : 'Pin to Top'}
                     </button>
                   </div>
                 </div>
 
-                <div className="flex justify-end gap-3 pt-4">
+                <div className="flex justify-end gap-3 pt-4 border-t border-slate-100">
                   <Button
                     type="button"
-                    variant="glass"
+                    variant="outline"
                     onClick={() => setIsAdding(false)}
-                    className="rounded-lg bg-slate-800 border-slate-700"
+                    className="rounded-lg bg-white border-slate-200 text-slate-700"
                   >
                     Cancel
                   </Button>
                   <Button
                     type="submit"
-                    variant="secondary"
-                    className="rounded-lg bg-gradient-to-r from-brand-500 to-brand-600 hover:from-brand-600 hover:to-brand-700 text-white"
+                    className="rounded-lg bg-brand-500 hover:bg-brand-600 text-white shadow-sm"
                   >
                     <Send className="w-4 h-4 mr-2" />
                     Publish Now
@@ -241,14 +238,14 @@ export default function AdminAnnouncementsPage() {
       </AnimatePresence>
 
       {/* Announcements Table */}
-      <div className="bg-slate-900/80 backdrop-blur-sm rounded-xl border border-slate-700/50 overflow-hidden">
+      <div className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm">
         {/* Pinned Section */}
         {pinnedAnnouncements.length > 0 && (
           <>
-            <div className="px-6 py-3 bg-amber-500/5 border-b border-slate-700/50">
+            <div className="px-6 py-3 bg-amber-50/50 border-b border-slate-100">
               <div className="flex items-center gap-2">
-                <Pin className="w-3.5 h-3.5 text-amber-400" />
-                <span className="text-[10px] font-black uppercase tracking-wider text-amber-400">Pinned Announcements</span>
+                <Pin className="w-3.5 h-3.5 text-amber-600" />
+                <span className="text-[10px] font-bold uppercase tracking-wider text-amber-700">Pinned Announcements</span>
               </div>
             </div>
             {pinnedAnnouncements.map((ann, index) => (
@@ -261,8 +258,8 @@ export default function AdminAnnouncementsPage() {
         {regularAnnouncements.length > 0 && (
           <>
             {pinnedAnnouncements.length > 0 && (
-              <div className="px-6 py-3 bg-slate-800/30 border-b border-slate-700/50">
-                <span className="text-[10px] font-black uppercase tracking-wider text-slate-500">All Announcements</span>
+              <div className="px-6 py-3 bg-slate-50 border-b border-slate-100">
+                <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">All Announcements</span>
               </div>
             )}
             {regularAnnouncements.map((ann, index) => (
@@ -274,15 +271,15 @@ export default function AdminAnnouncementsPage() {
         {/* Empty State */}
         {announcements.length === 0 && !isLoading && (
           <div className="flex flex-col items-center justify-center py-16 text-center">
-            <div className="w-16 h-16 rounded-full bg-slate-800 flex items-center justify-center mb-4">
-              <Megaphone className="w-8 h-8 text-slate-600" />
+            <div className="w-16 h-16 rounded-full bg-slate-50 flex items-center justify-center mb-4">
+              <Megaphone className="w-8 h-8 text-slate-300" />
             </div>
-            <h3 className="text-lg font-bold text-slate-400">No announcements yet</h3>
-            <p className="text-slate-500 text-sm mt-1">Create your first broadcast to reach students</p>
+            <h3 className="text-base font-bold text-slate-800">No announcements yet</h3>
+            <p className="text-slate-500 text-xs mt-1">Create your first broadcast to reach students</p>
             <Button
               onClick={() => setIsAdding(true)}
-              variant="glass"
-              className="mt-4 rounded-lg"
+              variant="outline"
+              className="mt-4 rounded-lg bg-white"
             >
               <Plus className="w-4 h-4 mr-2" />
               Create Announcement
@@ -308,11 +305,11 @@ function AnnouncementRow({
 
   const getTypeConfig = (type: string) => {
     const configs: Record<string, { label: string; color: string }> = {
-      general: { label: 'General', color: 'bg-blue-500/10 text-blue-400 border-blue-500/20' },
-      academic: { label: 'Academic', color: 'bg-purple-500/10 text-purple-400 border-purple-500/20' },
-      emergency: { label: 'Emergency', color: 'bg-red-500/10 text-red-400 border-red-500/20' },
-      event: { label: 'Event', color: 'bg-pink-500/10 text-pink-400 border-pink-500/20' },
-      maintenance: { label: 'Maintenance', color: 'bg-orange-500/10 text-orange-400 border-orange-500/20' }
+      general: { label: 'General', color: 'bg-blue-50 text-blue-700 border-blue-100' },
+      academic: { label: 'Academic', color: 'bg-purple-50 text-purple-700 border-purple-100' },
+      emergency: { label: 'Emergency', color: 'bg-red-50 text-red-700 border-red-100' },
+      event: { label: 'Event', color: 'bg-pink-50 text-pink-700 border-pink-100' },
+      maintenance: { label: 'Maintenance', color: 'bg-orange-50 text-orange-700 border-orange-100' }
     };
     return configs[type] || configs.general;
   };
@@ -338,38 +335,38 @@ function AnnouncementRow({
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.05 }}
-      className="group flex items-center justify-between p-5 border-b border-slate-700/50 last:border-b-0 hover:bg-slate-800/30 transition-all duration-200"
+      className="group flex items-center justify-between p-5 border-b border-slate-100 last:border-b-0 hover:bg-slate-50 transition-all duration-200"
     >
       <div className="flex-1 min-w-0">
         <div className="flex items-center gap-3 mb-1.5 flex-wrap">
           {announcement.is_pinned && (
-            <Pin className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
+            <Pin className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
           )}
-          <h3 className="font-bold text-white text-base truncate">
+          <h3 className="font-bold text-slate-900 text-base truncate">
             {announcement.title}
           </h3>
-          <Badge className={`text-[9px] font-black uppercase tracking-wider border ${typeConfig.color}`}>
+          <Badge className={`text-[9px] font-bold uppercase tracking-wider border ${typeConfig.color}`}>
             {typeConfig.label}
           </Badge>
-          <Badge variant="success" className="gap-1 bg-emerald-500/10 text-emerald-400 border-emerald-500/20 text-[9px] flex gap-2">
+          <Badge variant="success" className="gap-1 bg-emerald-50 text-emerald-700 border-emerald-100 text-[9px] flex gap-2">
             <CheckCircle2 className="w-2.5 h-2.5" />
             Live
           </Badge>
         </div>
-        <p className="text-sm text-slate-400 truncate max-w-lg">
+        <p className="text-sm text-slate-500 truncate max-w-lg">
           {announcement.content}
         </p>
         <div className="flex items-center gap-3 mt-2">
           <div className="flex items-center gap-1">
-            <Calendar className="w-3 h-3 text-slate-500" />
-            <span className="text-[10px] text-slate-500 font-medium">
+            <Calendar className="w-3 h-3 text-slate-400" />
+            <span className="text-[10px] text-slate-400 font-medium">
               {format(new Date(announcement.created_at), 'MMM dd, yyyy')}
             </span>
           </div>
           {announcement.banner_url && (
             <div className="flex items-center gap-1">
-              <Eye className="w-3 h-3 text-slate-500" />
-              <span className="text-[10px] text-slate-500">With banner</span>
+              <Eye className="w-3 h-3 text-slate-400" />
+              <span className="text-[10px] text-slate-400">With banner</span>
             </div>
           )}
         </div>
@@ -377,13 +374,13 @@ function AnnouncementRow({
 
       <div className="flex items-center gap-1 ml-4">
         <button
-          className="p-2 rounded-lg hover:bg-slate-700 text-slate-500 hover:text-slate-300 transition-all duration-200"
+          className="p-2 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-700 transition-colors"
           title="View"
         >
           <Eye className="w-4 h-4" />
         </button>
         <button
-          className="p-2 rounded-lg hover:bg-slate-700 text-slate-500 hover:text-slate-300 transition-all duration-200"
+          className="p-2 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-700 transition-colors"
           title="Edit"
         >
           <Edit3 className="w-4 h-4" />
@@ -391,7 +388,7 @@ function AnnouncementRow({
         <button
           onClick={handleDelete}
           disabled={isDeleting}
-          className="p-2 rounded-lg hover:bg-red-500/10 text-slate-500 hover:text-red-400 transition-all duration-200 disabled:opacity-50"
+          className="p-2 rounded-lg hover:bg-red-50 text-slate-400 hover:text-red-600 transition-colors disabled:opacity-50"
           title="Delete"
         >
           {isDeleting ? (
