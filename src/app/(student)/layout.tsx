@@ -49,11 +49,7 @@ export default async function StudentLayout({
                 </span>
               </div>
               <div className="flex items-center gap-4 text-[10px] text-slate-400">
-                <span>© 2024 Campus AI</span>
-                <span className="w-1 h-1 rounded-full bg-slate-200" />
-                <a href="#" className="hover:text-brand-500 transition-colors">Privacy</a>
-                <span className="w-1 h-1 rounded-full bg-slate-200" />
-                <a href="#" className="hover:text-brand-500 transition-colors">Terms</a>
+                <span>© {new Date().getFullYear()} Campus AI</span>
               </div>
             </div>
           </div>

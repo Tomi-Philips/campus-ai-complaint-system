@@ -41,6 +41,7 @@ export default function AdminComplaintsPage() {
     try {
       const data = await complaintService.getAllComplaints(filter);
       setComplaints(data);
+      console.log('[DEBUG fetchComplaints] First complaint:', data && data.length > 0 ? JSON.stringify(data[0]) : 'None found');
     } catch (error) {
       toast.error('Failed to load complaints');
     } finally {
@@ -53,15 +54,16 @@ export default function AdminComplaintsPage() {
       await complaintService.updateStatus(id, newStatus);
       toast.success(`Status updated to ${newStatus}`);
       fetchComplaints();
-    } catch (error) {
-      toast.error('Failed to update status');
+    } catch (error: any) {
+      console.error('Failed to update status:', error);
+      toast.error(`Failed to update status: ${error?.message || error}`);
     }
   };
 
   const filteredComplaints = complaints.filter(c =>
     c.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
     c.description.toLowerCase().includes(searchTerm.toLowerCase()) ||
-    c.profiles?.full_name?.toLowerCase().includes(searchTerm.toLowerCase())
+    (!c.is_anonymous && c.profiles?.full_name?.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
   const getUrgencyConfig = (urgency: string) => {
@@ -243,7 +245,7 @@ export default function AdminComplaintsPage() {
                           <User className="w-3 h-3 text-slate-500" />
                         </div>
                         <span className="text-[11px] font-semibold text-slate-600">
-                          {complaint.profiles?.full_name || 'Anonymous Student'}
+                          {complaint.is_anonymous ? 'Anonymous Student' : complaint.profiles?.full_name || 'Anonymous Student'}
                         </span>
                         <span className="text-[10px] text-slate-300">•</span>
                         <span className="text-[10px] text-slate-400">ID: {complaint.id.slice(0, 8)}</span>
